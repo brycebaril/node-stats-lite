@@ -40,6 +40,8 @@ API
 
 All of the exported functions take `vals` which is an array of numeric values. Non-numeric values will be removed, and string numbers will be converted to Numbers.
 
+**NOTE**: This will impact some operations, e.g. `mean([null, 1, 2, 3])` will be calculated as `mean([1, 2, 3])`, (e.g. `6 / 3 = 2`, NOT `6 / 4 = 1.5`)
+
 `numbers(vals)`
 ---
 
@@ -68,7 +70,7 @@ Calculate the [median](http://en.wikipedia.org/wiki/Median) average value of val
 `mode(vals)`
 ---
 
-Calculate the [mode](http://en.wikipedia.org/wiki/Mode_(statistics)) average value of vals.
+Calculate the [mode](http://en.wikipedia.org/wiki/Mode_statistics) average value of vals.
 
 `variance(vals)`
 ---
