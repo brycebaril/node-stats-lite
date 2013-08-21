@@ -1,0 +1,41 @@
+{
+  "name": "stats-lite",
+  "version": "0.0.0",
+  "description": "A light statistical package that operates on numeric Arrays.",
+  "main": "stats.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brycebaril/node-stats-lite.git"
+  },
+  "keywords": [
+    "stats",
+    "statistics",
+    "numbers",
+    "math",
+    "sum",
+    "mean",
+    "average",
+    "mode",
+    "median",
+    "percentile",
+    "variance",
+    "deviation"
+  ],
+  "author": "Bryce B. Baril",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brycebaril/node-stats-lite/issues"
+  },
+  "dependencies": {
+    "isnumber": "~1.0.0"
+  },
+  "devDependencies": {
+    "tape": "~1.0.4"
+  }
+}
