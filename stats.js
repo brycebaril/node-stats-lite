@@ -10,11 +10,15 @@ module.exports.percentile = percentile
 var isNumber = require("isnumber")
 
 function numbers(vals) {
-  if (vals == null) return []
-  return vals.reduce(function (nums, v) {
-    if (isNumber(v)) nums.push(+v)
+  var nums = []
+  if (vals == null)
     return nums
-  }, [])
+
+  for (var i = 0; i < vals.length; i++) {
+    if (isNumber(vals[i]))
+      nums.push(+vals[i])
+  }
+  return nums
 }
 
 function nsort(vals) {
@@ -23,7 +27,11 @@ function nsort(vals) {
 
 function sum(vals) {
   vals = numbers(vals)
-  return vals.reduce(function (total, val) { return total + val }, 0)
+  var total = 0
+  for (var i = 0; i < vals.length; i++) {
+    total += vals[i]
+  }
+  return total
 }
 
 function mean(vals) {
@@ -73,8 +81,11 @@ function mode(vals) {
 function variance(vals) {
   vals = numbers(vals)
   var avg = mean(vals)
-  diff = vals.map(function (v) { return Math.pow((v - avg), 2) })
-  return mean(diff)
+  var diffs = []
+  for (var i = 0; i < vals.length; i++) {
+    diffs.push(Math.pow((vals[i] - avg), 2))
+  }
+  return mean(diffs)
 }
 
 // Standard Deviation = sqrt of variance
