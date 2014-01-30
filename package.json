@@ -1,6 +1,6 @@
 {
   "name": "stats-lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A light statistical package that operates on numeric Arrays.",
   "main": "stats.js",
   "directories": {
