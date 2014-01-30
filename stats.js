@@ -60,7 +60,7 @@ function mode(vals) {
     me++
     dist[n] = me
   })
-  var rank = Object.keys(dist).sort(function (a, b) { return dist[b] - dist[a] })
+  var rank = numbers(Object.keys(dist).sort(function (a, b) { return dist[b] - dist[a] }))
   mode = rank[0]
   if (dist[rank[1]] == dist[mode]) {
     // Multiple modes found, abort
