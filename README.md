@@ -8,11 +8,10 @@ A fairly light statistical package for Node.js. Works with numeric arrays, and w
 Example
 ---
 
-<iframe src="http://requirebin.com/embed?gist=brycebaril/9591291" frameborder="0" height="50%" width="100%"></iframe>
-
+[Live Demo using Browserify!](http://requirebin.com/embed?gist=brycebaril/9591291)
 
 ```javascript
-var stats = require("stats-lite" height="50%" width="100%")
+var stats = require("stats-lite")
 
 var dice = require("dice")
 
