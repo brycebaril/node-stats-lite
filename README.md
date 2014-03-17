@@ -5,35 +5,11 @@ stats-lite
 
 A fairly light statistical package for Node.js. Works with numeric arrays, and will automatically filter out non-numeric values and attempt to convert string numeric values.
 
-```javascript
-var stats = require("stats-lite")
+Example
+---
 
-var dice = require("dice")
+<iframe src="http://requirebin.com/embed?gist=brycebaril/9591291" frameborder="0" height="50%" width="100%"></iframe>
 
-var rolls = []
-for (var i = 0; i < 3000; i++) {
-  rolls.push(dice.sum(dice.roll("2d6")))
-}
-
-console.log("sum: %s", stats.sum(rolls))
-console.log("mean: %s", stats.mean(rolls))
-console.log("median: %s", stats.median(rolls))
-console.log("mode: %s", stats.mode(rolls))
-console.log("variance: %s", stats.variance(rolls))
-console.log("standard deviation: %s", stats.stdev(rolls))
-console.log("85th percentile: %s", stats.percentile(rolls, 0.85))
-
-/* Your exact numbers may vary, but they should be pretty similar:
-sum: 21006
-mean: 7.002
-median: 7
-mode: 7
-variance: 5.907329333333325
-standard deviation: 2.430499811424252
-85th percentile: 10
-*/
-
-```
 
 API
 ===
