@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports.numbers = numbers
 module.exports.sum = sum
 module.exports.mean = mean
@@ -7,14 +9,14 @@ module.exports.variance = variance
 module.exports.stdev = stdev
 module.exports.percentile = percentile
 
-var isNumber = require("isnumber")
+const isNumber = require("isnumber")
 
 function numbers(vals) {
-  var nums = []
+  let nums = []
   if (vals == null)
     return nums
 
-  for (var i = 0; i < vals.length; i++) {
+  for (let i = 0; i < vals.length; i++) {
     if (isNumber(vals[i]))
       nums.push(+vals[i])
   }
@@ -22,13 +24,13 @@ function numbers(vals) {
 }
 
 function nsort(vals) {
-  return vals.sort(function (a, b) { return a - b })
+  return vals.sort(function numericSort(a, b) { return a - b })
 }
 
 function sum(vals) {
   vals = numbers(vals)
-  var total = 0
-  for (var i = 0; i < vals.length; i++) {
+  let total = 0
+  for (let i = 0; i < vals.length; i++) {
     total += vals[i]
   }
   return total
@@ -44,7 +46,7 @@ function median(vals) {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
 
-  var half = (vals.length / 2) | 0
+  let half = (vals.length / 2) | 0
 
   vals = nsort(vals)
   if (vals.length % 2) {
@@ -57,22 +59,40 @@ function median(vals) {
   }
 }
 
-// Returns the mode of a unimodal dataset -- NaN for multi-modal or empty datasets.
+// Returns the mode of a unimodal dataset
+// If the dataset is multi-modal, returns a Set containing the modes
 function mode(vals) {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
-  var mode = NaN
-  var dist = {}
-  vals.forEach(function (n) {
-    var me = dist[n] || 0
+  let mode = NaN
+  let dist = {}
+
+  for (let i = 0; i < vals.length; i++) {
+    let value = vals[i]
+    let me = dist[value] || 0
     me++
-    dist[n] = me
-  })
-  var rank = numbers(Object.keys(dist).sort(function (a, b) { return dist[b] - dist[a] }))
+    dist[value] = me
+  }
+
+  let rank = numbers(Object.keys(dist).sort(function sortMembers(a, b) { return dist[b] - dist[a] }))
   mode = rank[0]
   if (dist[rank[1]] == dist[mode]) {
-    // Multiple modes found, abort
-    return NaN
+    // multi-modal
+    if (rank.length == vals.length) {
+      // all values are modes
+      return vals
+    }
+    let modes = new Set([mode])
+    let modeCount = dist[mode]
+    for (let i = 1; i < rank.length; i++) {
+      if (dist[rank[i]] == modeCount) {
+        modes.add(rank[i])
+      }
+      else {
+        break
+      }
+    }
+    return modes
   }
   return mode
 }
@@ -80,9 +100,9 @@ function mode(vals) {
 // Variance = average squared deviation from mean
 function variance(vals) {
   vals = numbers(vals)
-  var avg = mean(vals)
-  var diffs = []
-  for (var i = 0; i < vals.length; i++) {
+  let avg = mean(vals)
+  let diffs = []
+  for (let i = 0; i < vals.length; i++) {
     diffs.push(Math.pow((vals[i] - avg), 2))
   }
   return mean(diffs)
@@ -100,10 +120,10 @@ function percentile(vals, ptile) {
   // Fudge anything over 100 to 1.0
   if (ptile > 1) ptile = 1
   vals = nsort(vals)
-  var i = (vals.length * ptile) - 0.5
+  let i = (vals.length * ptile) - 0.5
   if ((i | 0) === i) return vals[i]
   // interpolated percentile -- using Estimation method
-  var int_part = i | 0
-  var fract = i - int_part
+  let int_part = i | 0
+  let fract = i - int_part
   return (1 - fract) * vals[int_part] + fract * vals[int_part + 1]
 }

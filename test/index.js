@@ -1,9 +1,11 @@
-var test = require("tape").test
+"use strict";
 
-var stats = require("../stats")
+const test = require("tape").test
+
+const stats = require("../stats")
 
 test("numbers", function (t) {
-  var numbers = stats.numbers
+  let numbers = stats.numbers
   t.equals(typeof numbers, "function", "numbers is a function")
 
   t.deepEquals(numbers(), [], "undefined returns empty array")
@@ -18,7 +20,7 @@ test("numbers", function (t) {
 })
 
 test("sum", function (t) {
-  var sum = stats.sum
+  let sum = stats.sum
 
   t.equals(typeof sum, "function", "sum is a function")
 
@@ -34,13 +36,13 @@ test("sum", function (t) {
 })
 
 test("mean", function (t) {
-  var mean = stats.mean
+  let mean = stats.mean
 
   t.equals(typeof mean, "function", "mean is a function")
 
   t.ok(isNaN(mean()), "mean of nothing is NaN")
 
-  t.ok(isNaN(mean([])), NaN, "mean of nothing is NaN")
+  t.ok(isNaN(mean([])), "mean of nothing is NaN")
 
   t.deepEquals(mean([1, 2, 3]), 2, "mean works")
 
@@ -50,13 +52,13 @@ test("mean", function (t) {
 })
 
 test("median", function (t) {
-  var median = stats.median
+  let median = stats.median
 
   t.equals(typeof median, "function", "median is a function")
 
   t.ok(isNaN(median()), "median of nothing is NaN")
 
-  t.ok(isNaN(median([])), NaN, "median of nothing is NaN")
+  t.ok(isNaN(median([])), "median of nothing is NaN")
 
   t.deepEquals(median([1, 2, 2, 2, 3, 14]), 2, "median works")
 
@@ -68,31 +70,33 @@ test("median", function (t) {
 })
 
 test("mode", function (t) {
-  var mode = stats.mode
+  let mode = stats.mode
 
   t.equals(typeof mode, "function", "mode is a function")
 
   t.ok(isNaN(mode()), "mode of nothing is NaN")
 
-  t.ok(isNaN(mode([])), NaN, "mode of nothing is NaN")
+  t.ok(isNaN(mode([])), "mode of nothing is NaN")
 
   t.deepEquals(mode([1, 2, 2, 2, 3, 14]), 2, "mode works")
 
-  t.ok(isNaN(mode([1, 2, 7, 8, 5])), "gives up for multiple modes")
+  t.deepEquals(mode([1, 1, 7, 5, 5, 8, 7]), new Set([1, 5, 7]), "multi-modal works")
 
-  t.deepEquals(mode([1, "6", 2, 8, 7, 2]), 2, "mode works (even) number")
+  t.deepEquals(mode([1, 1, 7, 5, 5, 8, 7]), new Set([1, 7, 5]), "multi-modal works and order doesn't matter (yay Set)")
+
+  t.deepEquals(mode([1, "6", 2, 8, 7, 2]), 2, "mode works with stringification")
 
   t.end()
 })
 
 test("variance", function (t) {
-  var variance = stats.variance
+  let variance = stats.variance
 
   t.equals(typeof variance, "function", "variance is a function")
 
   t.ok(isNaN(variance()), "variance of nothing is NaN")
 
-  t.ok(isNaN(variance([])), NaN, "variance of nothing is NaN")
+  t.ok(isNaN(variance([])), "variance of nothing is NaN")
 
   t.deepEquals(variance([2, 4, 4, 4, 5, 5, 7, 9]), 4, "variance works")
 
@@ -102,13 +106,13 @@ test("variance", function (t) {
 })
 
 test("stdev", function (t) {
-  var stdev = stats.stdev
+  let stdev = stats.stdev
 
   t.equals(typeof stdev, "function", "stdev is a function")
 
   t.ok(isNaN(stdev()), "stdev of nothing is NaN")
 
-  t.ok(isNaN(stdev([])), NaN, "stdev of nothing is NaN")
+  t.ok(isNaN(stdev([])), "stdev of nothing is NaN")
 
   t.deepEquals(stdev([2, 4, 4, 4, 5, 5, 7, 9]), 2, "stdev works")
 
@@ -118,17 +122,17 @@ test("stdev", function (t) {
 })
 
 test("percentile", function (t) {
-  var percentile = stats.percentile
+  let percentile = stats.percentile
 
   t.equals(typeof percentile, "function", "percentile is a function")
 
   t.ok(isNaN(percentile()), "percentile of nothing is NaN")
 
-  t.ok(isNaN(percentile([])), NaN, "percentile of nothing is NaN")
+  t.ok(isNaN(percentile([])), "percentile of nothing is NaN")
 
-  var scores = [4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,10]
+  let scores = [4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,10]
 
-  t.ok(isNaN(percentile(scores)), NaN, "percentile requires a target percentile")
+  t.ok(isNaN(percentile(scores)), "percentile requires a target percentile")
 
 
   t.deepEquals(percentile(scores, 0.50), stats.median(scores), "50th percentile equals median")

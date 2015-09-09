@@ -4,6 +4,7 @@
   "description": "A light statistical package that operates on numeric Arrays.",
   "main": "stats.js",
   "directories": {
+    "example": "examples",
     "test": "test"
   },
   "scripts": {
@@ -32,10 +33,14 @@
   "bugs": {
     "url": "https://github.com/brycebaril/node-stats-lite/issues"
   },
+  "engines": {
+    "node": ">=2.0.0"
+  },
   "dependencies": {
     "isnumber": "~1.0.0"
   },
   "devDependencies": {
-    "tape": "~2.10.2"
-  }
+    "tape": "~4.2.0"
+  },
+  "homepage": "https://github.com/brycebaril/node-stats-lite"
 }

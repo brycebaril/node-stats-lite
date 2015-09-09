@@ -40,6 +40,8 @@ standard deviation: 2.430499811424252
 
 ```
 
+**Compatibility Notice**: Version 2.0.0+ of this library use features that require Node.js v4.0.0 and above
+
 API
 ===
 
@@ -65,17 +67,19 @@ numbers(["cat", 1, "22.9", 9])
 `mean(vals)`
 ---
 
-Calculate the [mean](http://en.wikipedia.org/wiki/Mean) average value of vals.
+Calculate the [mean](http://en.wikipedia.org/wiki/Mean) average value of `vals`.
 
 `median(vals)`
 ---
 
-Calculate the [median](http://en.wikipedia.org/wiki/Median) average value of vals.
+Calculate the [median](http://en.wikipedia.org/wiki/Median) average value of `vals`.
 
 `mode(vals)`
 ---
 
-Calculate the [mode](http://en.wikipedia.org/wiki/Mode_statistics) average value of vals.
+Calculate the [mode](http://en.wikipedia.org/wiki/Mode_statistics) average value of `vals`.
+
+If `vals` is multi-modal (contains multiple modes), `mode(vals)` will return a ES6 Set of the modes.
 
 `variance(vals)`
 ---
