@@ -125,5 +125,5 @@ function percentile(vals, ptile) {
   // interpolated percentile -- using Estimation method
   let int_part = i | 0
   let fract = i - int_part
-  return (1 - fract) * vals[int_part] + fract * vals[int_part + 1]
+  return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
 }

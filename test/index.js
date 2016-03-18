@@ -145,5 +145,7 @@ test("percentile", function (t) {
 
   t.deepEquals(percentile([15, 20, 35, 40, 50], 0.4), 27.5, "perentile works")
 
+  t.deepEquals(percentile([100, 200], 0.9), 200, "percentiles above data work")
+
   t.end()
 })
