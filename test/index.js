@@ -5,7 +5,7 @@ const test = require("tape").test
 const stats = require("../stats")
 
 test("numbers", function (t) {
-  let numbers = stats.numbers
+  var numbers = stats.numbers
   t.equals(typeof numbers, "function", "numbers is a function")
 
   t.deepEquals(numbers(), [], "undefined returns empty array")
@@ -20,7 +20,7 @@ test("numbers", function (t) {
 })
 
 test("sum", function (t) {
-  let sum = stats.sum
+  var sum = stats.sum
 
   t.equals(typeof sum, "function", "sum is a function")
 
@@ -36,7 +36,7 @@ test("sum", function (t) {
 })
 
 test("mean", function (t) {
-  let mean = stats.mean
+  var mean = stats.mean
 
   t.equals(typeof mean, "function", "mean is a function")
 
@@ -52,7 +52,7 @@ test("mean", function (t) {
 })
 
 test("median", function (t) {
-  let median = stats.median
+  var median = stats.median
 
   t.equals(typeof median, "function", "median is a function")
 
@@ -70,7 +70,7 @@ test("median", function (t) {
 })
 
 test("mode", function (t) {
-  let mode = stats.mode
+  var mode = stats.mode
 
   t.equals(typeof mode, "function", "mode is a function")
 
@@ -90,7 +90,7 @@ test("mode", function (t) {
 })
 
 test("variance", function (t) {
-  let variance = stats.variance
+  var variance = stats.variance
 
   t.equals(typeof variance, "function", "variance is a function")
 
@@ -106,7 +106,7 @@ test("variance", function (t) {
 })
 
 test("stdev", function (t) {
-  let stdev = stats.stdev
+  var stdev = stats.stdev
 
   t.equals(typeof stdev, "function", "stdev is a function")
 
@@ -122,7 +122,7 @@ test("stdev", function (t) {
 })
 
 test("percentile", function (t) {
-  let percentile = stats.percentile
+  var percentile = stats.percentile
 
   t.equals(typeof percentile, "function", "percentile is a function")
 
@@ -130,7 +130,7 @@ test("percentile", function (t) {
 
   t.ok(isNaN(percentile([])), "percentile of nothing is NaN")
 
-  let scores = [4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,10]
+  var scores = [4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,10]
 
   t.ok(isNaN(percentile(scores)), "percentile requires a target percentile")
 

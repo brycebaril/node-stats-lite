@@ -12,11 +12,11 @@ module.exports.percentile = percentile
 const isNumber = require("isnumber")
 
 function numbers(vals) {
-  let nums = []
+  var nums = []
   if (vals == null)
     return nums
 
-  for (let i = 0; i < vals.length; i++) {
+  for (var i = 0; i < vals.length; i++) {
     if (isNumber(vals[i]))
       nums.push(+vals[i])
   }
@@ -29,8 +29,8 @@ function nsort(vals) {
 
 function sum(vals) {
   vals = numbers(vals)
-  let total = 0
-  for (let i = 0; i < vals.length; i++) {
+  var total = 0
+  for (var i = 0; i < vals.length; i++) {
     total += vals[i]
   }
   return total
@@ -46,7 +46,7 @@ function median(vals) {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
 
-  let half = (vals.length / 2) | 0
+  var half = (vals.length / 2) | 0
 
   vals = nsort(vals)
   if (vals.length % 2) {
@@ -64,17 +64,17 @@ function median(vals) {
 function mode(vals) {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
-  let mode = NaN
-  let dist = {}
+  var mode = NaN
+  var dist = {}
 
-  for (let i = 0; i < vals.length; i++) {
-    let value = vals[i]
-    let me = dist[value] || 0
+  for (var i = 0; i < vals.length; i++) {
+    var value = vals[i]
+    var me = dist[value] || 0
     me++
     dist[value] = me
   }
 
-  let rank = numbers(Object.keys(dist).sort(function sortMembers(a, b) { return dist[b] - dist[a] }))
+  var rank = numbers(Object.keys(dist).sort(function sortMembers(a, b) { return dist[b] - dist[a] }))
   mode = rank[0]
   if (dist[rank[1]] == dist[mode]) {
     // multi-modal
@@ -82,9 +82,9 @@ function mode(vals) {
       // all values are modes
       return vals
     }
-    let modes = new Set([mode])
-    let modeCount = dist[mode]
-    for (let i = 1; i < rank.length; i++) {
+    var modes = new Set([mode])
+    var modeCount = dist[mode]
+    for (var i = 1; i < rank.length; i++) {
       if (dist[rank[i]] == modeCount) {
         modes.add(rank[i])
       }
@@ -100,9 +100,9 @@ function mode(vals) {
 // Variance = average squared deviation from mean
 function variance(vals) {
   vals = numbers(vals)
-  let avg = mean(vals)
-  let diffs = []
-  for (let i = 0; i < vals.length; i++) {
+  var avg = mean(vals)
+  var diffs = []
+  for (var i = 0; i < vals.length; i++) {
     diffs.push(Math.pow((vals[i] - avg), 2))
   }
   return mean(diffs)
@@ -120,10 +120,10 @@ function percentile(vals, ptile) {
   // Fudge anything over 100 to 1.0
   if (ptile > 1) ptile = 1
   vals = nsort(vals)
-  let i = (vals.length * ptile) - 0.5
+  var i = (vals.length * ptile) - 0.5
   if ((i | 0) === i) return vals[i]
   // interpolated percentile -- using Estimation method
-  let int_part = i | 0
-  let fract = i - int_part
+  var int_part = i | 0
+  var fract = i - int_part
   return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
 }

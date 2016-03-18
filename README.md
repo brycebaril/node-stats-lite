@@ -94,7 +94,7 @@ Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviati
 `percentile(vals, ptile)`
 ---
 
-Calculate the value reprecenting the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
+Calculate the value representing the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
 
 LICENSE
 =======
