@@ -1,9 +1,11 @@
 stats-lite
 =====
 
+**Compatibility Notice**: Version 2.0.0+ of this library use ECMA2015 features. Works on Node.js v4.0.0 and above.
+
 [![NPM](https://nodei.co/npm/stats-lite.png)](https://nodei.co/npm/stats-lite/)
 
-A fairly light statistical package for Node.js. Works with numeric arrays, and will automatically filter out non-numeric values and attempt to convert string numeric values.
+A fairly light statistical package. Works with numeric arrays, and will automatically filter out non-numeric values and attempt to convert string numeric values.
 
 Example
 ---
@@ -39,8 +41,6 @@ standard deviation: 2.430499811424252
 */
 
 ```
-
-**Compatibility Notice**: Version 2.0.0+ of this library use features that require Node.js v4.0.0 and above
 
 API
 ===
