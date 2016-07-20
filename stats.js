@@ -9,7 +9,7 @@ module.exports.variance = variance
 module.exports.stdev = stdev
 module.exports.percentile = percentile
 
-const isNumber = require("isnumber")
+var isNumber = require("isnumber")
 
 function numbers(vals) {
   var nums = []

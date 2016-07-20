@@ -1,8 +1,8 @@
 "use strict";
 
-const test = require("tape").test
+var test = require("tape").test
 
-const stats = require("../stats")
+var stats = require("../stats")
 
 test("numbers", function (t) {
   var numbers = stats.numbers
