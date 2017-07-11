@@ -8,6 +8,7 @@ module.exports.mode = mode
 module.exports.variance = variance
 module.exports.stdev = stdev
 module.exports.percentile = percentile
+module.exports.histogram = histogram
 
 var isNumber = require("isnumber")
 
@@ -126,4 +127,59 @@ function percentile(vals, ptile) {
   var int_part = i | 0
   var fract = i - int_part
   return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
+}
+
+function histogram (vals, bins) {
+  if (vals == null) {
+    return null
+  }
+  vals = nsort(numbers(vals))
+  if (vals.length === 0) {
+    return null
+  }
+  if (bins == null) {
+    // pick bins by simple method: Math.sqrt(n)
+    bins = Math.sqrt(vals.length)
+  }
+  bins = Math.round(bins)
+  if (bins < 1) {
+    bins = 1
+  }
+
+  var min = vals[0]
+  var max = vals[vals.length - 1]
+  if (min === max) {
+    // fudge for non-variant data
+    min = min - 0.5
+    max = max + 0.5
+  }
+
+  var range = (max - min)
+  // make the bins slightly larger by expanding the range about 10%
+  // this helps with dumb floating point stuff
+  var binWidth = (range + (range * 0.05)) / bins
+  var midpoint = (min + max) / 2
+  // even bin count, midpoint makes an edge
+  var leftEdge = midpoint - (binWidth * Math.floor(bins / 2))
+  if (bins % 2 !== 0) {
+    // odd bin count, center middle bin on midpoint
+    var leftEdge = (midpoint - (binWidth / 2)) - (binWidth * Math.floor(bins / 2))
+  }
+
+  var hist = {
+    values: Array(bins).fill(0),
+    bins: bins,
+    binWidth: binWidth,
+    binLimits: [leftEdge, leftEdge + (binWidth * bins)]
+  }
+
+  var binIndex = 0
+  for (var i = 0; i < vals.length; i++) {
+    while (vals[i] > (((binIndex + 1) * binWidth) + leftEdge)) {
+      binIndex++
+    }
+    hist.values[binIndex]++
+  }
+
+  return hist
 }

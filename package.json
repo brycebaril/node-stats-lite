@@ -40,6 +40,7 @@
     "isnumber": "~1.0.0"
   },
   "devDependencies": {
+    "dice": "0.0.2",
     "tape": "~4.6.3"
   },
   "homepage": "https://github.com/brycebaril/node-stats-lite"

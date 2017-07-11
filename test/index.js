@@ -3,6 +3,7 @@
 var test = require("tape").test
 
 var stats = require("../stats")
+var dice = require('dice')
 
 test("numbers", function (t) {
   var numbers = stats.numbers
@@ -147,5 +148,66 @@ test("percentile", function (t) {
 
   t.deepEquals(percentile([100, 200], 0.9), 200, "percentiles above data work")
 
+  t.end()
+})
+
+test('histogram', (t) => {
+  var histogram = stats.histogram
+
+  t.equals(typeof histogram, 'function', 'histogram is a function')
+
+  t.notOk(histogram(), 'histogram of nothing is null')
+
+  t.notOk(histogram([]), 'histogram of nothing is null')
+
+  // With preset bin count
+  var expect = {
+    values: [ 1, 0, 0, 0, 1 ],
+    bins: 5,
+    binWidth: 2.94,
+    binLimits: [ 1.6500000000000004, 16.35 ]
+  }
+  t.deepEquals(histogram([2, 16], 5), expect)
+
+  expect = {
+    values: [ 1, 0, 0, 0, 0, 1 ],
+    bins: 6,
+    binWidth: 2.4499999999999997,
+    binLimits: [ 1.6500000000000004, 16.35 ]
+  }
+  t.deepEquals(histogram([2, 16], 6), expect)
+
+  expect = {
+    values: [ 1 ],
+    bins: 1,
+    binWidth: 1.05,
+    binLimits: [ 99.475, 100.52499999999999 ]
+  }
+  t.deepEquals(histogram([100], 1), expect, "Single entry")
+
+  expect = {
+    binLimits: [ -105, 105 ],
+    binWidth: 10.5,
+    bins: 20,
+    values: [ 1, 0, 0, 0, 1, 0, 0, 1, 0, 2, 3, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]
+  }
+  t.deepEquals(histogram([-100, -53, 10, 100, -22, 0, 0, 1, 3, 44], 20), expect, 'range goes from negative to positive')
+
+  function diceTest (n, dieString) {
+    var rolls = []
+    for (var i = 0; i < n; i++) {
+      rolls.push(dice.sum(dice.roll(dieString)))
+    }
+    var hist = histogram(rolls)
+    t.equals(stats.sum(hist.values), n, 'right number of values')
+    // t.ok(hist.values[0] > 0, 'first bin is full')
+    // t.ok(hist.values[hist.values.length - 1] > 0, 'last bin is full')
+    t.ok(hist.bins > 1, 'more than one bin')
+  }
+  diceTest(1000, '2d10')
+  diceTest(100, '3d100')
+  diceTest(2000, '30d5')
+  diceTest(2000, '1d1000')
+  diceTest(2000, '2d-5')
   t.end()
 })

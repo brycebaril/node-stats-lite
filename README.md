@@ -27,6 +27,7 @@ console.log("mode: %s", stats.mode(rolls))
 console.log("variance: %s", stats.variance(rolls))
 console.log("standard deviation: %s", stats.stdev(rolls))
 console.log("85th percentile: %s", stats.percentile(rolls, 0.85))
+console.log("histogram:", stats.histogram(rolls))
 
 /* Your exact numbers may vary, but they should be pretty similar:
 sum: 21006
@@ -36,6 +37,10 @@ mode: 7
 variance: 5.907329333333325
 standard deviation: 2.430499811424252
 85th percentile: 10
+histogram { values: [ 86, 159, 253, 335, 907, 405, 339, 270, 146, 100 ],
+  bins: 10,
+  binWidth: 1.05,
+  binLimits: [ 1.75, 12.25 ] }
 */
 
 ```
@@ -95,6 +100,20 @@ Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviati
 ---
 
 Calculate the value representing the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
+
+`histogram(vals[, bins])`
+---
+
+Build a histogram representing the distribution of the data in the provided number of `bins`. If `bins` is not set, it will choose one based on `Math.sqrt(vals.length)`. Data will look like:
+```
+histogram {
+  values: [ 86, 159, 253, 335, 907, 405, 339, 270, 146, 100 ],
+  bins: 10,
+  binWidth: 1.05,
+  binLimits: [ 1.75, 12.25 ]
+}
+```
+Where `values` are the bins and the counts of the original values falling in that range. The ranges can be calculated from the `binWidth` and `binLimits`. For example, the first bin `values[0]` in this example is from `1.75 < value <= 2.8`. The third bin `values[2]` would be `1.75 + (1.05 * 2) < value <= 1.75 + (1.05 * 3)` or `3.85 < value <= 4.9`.
 
 LICENSE
 =======
