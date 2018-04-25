@@ -5,8 +5,11 @@ stats-lite
 
 A fairly light statistical package. Works with numeric arrays, and will automatically filter out non-numeric values and attempt to convert string numeric values.
 
-Install
+### Install
+
+```
 npm install node-stats-lite --save
+```
 
 Example
 ---
