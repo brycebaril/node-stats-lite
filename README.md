@@ -8,7 +8,7 @@ A fairly light statistical package. Works with numeric arrays, and will automati
 ## Install
 
 ```
-"npm install stats-lite --save"
+ npm install stats-lite --save
 ```
 
 Example
