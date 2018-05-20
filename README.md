@@ -107,6 +107,23 @@ Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviati
 
 Calculate the value representing the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
 
+`quartiles(vals)`
+---
+
+Calculate the [quartiles](http://en.wikipedia.org/wiki/Quartile) as an array of three values.
+
+`interquartile(vals)`
+---
+
+Calculate the [interquartile](https://en.wikipedia.org/wiki/Interquartile_range) value - `Q3 - Q1`.
+
+`removeOutliers(vals)`
+---
+
+Remove the [outliers](https://en.wikipedia.org/wiki/Interquartile_range#Outliers), computed as values outside the interval `Q1 - 1,5 * IQR, Q3 + 1,5 IQR`.
+
+
+
 `histogram(vals[, bins])`
 ---
 
