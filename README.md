@@ -32,18 +32,20 @@ console.log("median: %s", stats.median(rolls))
 console.log("mode: %s", stats.mode(rolls))
 console.log("variance: %s", stats.variance(rolls))
 console.log("standard deviation: %s", stats.stdev(rolls))
+console.log("sample standard deviation: %s", stats.sampleStdev(rolls))
 console.log("85th percentile: %s", stats.percentile(rolls, 0.85))
-console.log("histogram:", stats.histogram(rolls))
+console.log("histogram:", stats.histogram(rolls, 10))
 
 /* Your exact numbers may vary, but they should be pretty similar:
-sum: 21006
-mean: 7.002
+sum: 21041
+mean: 7.0136666666666665
 median: 7
 mode: 7
-variance: 5.907329333333325
-standard deviation: 2.430499811424252
+variance: 5.8568132222220415
+standard deviation: 2.4200853749861886
+sample standard deviation: 2.4204888234135953
 85th percentile: 10
-histogram { values: [ 86, 159, 253, 335, 907, 405, 339, 270, 146, 100 ],
+histogram { values: [ 94, 163, 212, 357, 925, 406, 330, 264, 164, 85 ],
   bins: 10,
   binWidth: 1.05,
   binLimits: [ 1.75, 12.25 ] }
@@ -95,12 +97,23 @@ If `vals` is multi-modal (contains multiple modes), `mode(vals)` will return a E
 `variance(vals)`
 ---
 
-Calculate the [variance](http://en.wikipedia.org/wiki/Variance) from the mean.
+Calculate the [variance](http://en.wikipedia.org/wiki/Variance) from the mean for a population.
 
 `stdev(vals)`
 ---
 
-Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviation) of the values from the mean.
+Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviation) of the values from the mean for a population.
+
+`sampleVariance(vals)`
+---
+
+Calculate the [variance](http://en.wikipedia.org/wiki/Variance) from the mean for a sample.
+
+`sampleStdev(vals)`
+---
+
+Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviation) of the values from the mean for a sample.
+
 
 `percentile(vals, ptile)`
 ---
