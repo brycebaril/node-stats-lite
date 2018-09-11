@@ -106,6 +106,24 @@ test("variance", function (t) {
   t.end()
 })
 
+test("sampleVariance", function (t) {
+  var variance = stats.sampleVariance
+
+  t.equals(typeof variance, "function", "sampleVariance is a function")
+
+  t.ok(isNaN(variance()), "sampleVariance of nothing is NaN")
+
+  t.ok(isNaN(variance([])), "sampleVariance of nothing is NaN")
+
+  t.ok(isNaN(variance([42.4242])), "sampleVariance of one thing is NaN")
+
+  t.deepEquals(variance([2, 4, 4, 4, 5, 5, 7, 9]), 4.571428571428571, "sampleVariance works")
+
+  t.deepEquals(variance([600, "470", 170, 430, 300]), 27130, "sampleVariance works")
+
+  t.end()
+})
+
 test("stdev", function (t) {
   var stdev = stats.stdev
 
@@ -115,9 +133,32 @@ test("stdev", function (t) {
 
   t.ok(isNaN(stdev([])), "stdev of nothing is NaN")
 
+  t.deepEquals(stdev([42.4242]), 0, "stdev of one thing is zero")
+
   t.deepEquals(stdev([2, 4, 4, 4, 5, 5, 7, 9]), 2, "stdev works")
 
   t.deepEquals(stdev([600, "470", 170, 430, 300]), 147.32277488562318, "stdev works")
+
+  t.end()
+})
+
+
+test("sampleStdev", function (t) {
+  var stdev = stats.sampleStdev
+
+  t.equals(typeof stdev, "function", "sampleStdev is a function")
+
+  t.ok(isNaN(stdev()), "sampleStdev of nothing is NaN")
+
+  t.ok(isNaN(stdev([])), "sampleStdev of nothing is NaN")
+
+  t.ok(isNaN(stdev([42.4242])), "sampleStdev of 1 thing is NaN")
+
+  t.deepEquals(stdev([2, 4, 4, 4, 5, 5, 7, 9]), 2.138089935299395, "sampleStdev works")
+
+  t.deepEquals(stdev([600, "470", 170, 430, 300]), 164.7118696390761, "sampleStdev works")
+
+  t.deepEquals(stdev([710, 660.474666666667, 337.83, 600, 550, 710]), 140.6576424153763, "sampleStdev works")
 
   t.end()
 })

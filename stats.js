@@ -5,8 +5,12 @@ module.exports.sum = sum
 module.exports.mean = mean
 module.exports.median = median
 module.exports.mode = mode
-module.exports.variance = variance
-module.exports.stdev = stdev
+module.exports.variance = populationVariance
+module.exports.sampleVariance = sampleVariance
+module.exports.populationVariance = populationVariance
+module.exports.stdev = populationStdev
+module.exports.sampleStdev = sampleStdev
+module.exports.populationStdev = populationStdev
 module.exports.percentile = percentile
 module.exports.histogram = histogram
 
@@ -98,20 +102,41 @@ function mode(vals) {
   return mode
 }
 
-// Variance = average squared deviation from mean
-function variance(vals) {
+// This helper finds the mean of all the values, then squares the difference
+// from the mean for each value and returns the resulting array.  This is the
+// core of the varience functions - the difference being dividing by N or N-1.
+function valuesMinusMeanSquared(vals) {
   vals = numbers(vals)
   var avg = mean(vals)
   var diffs = []
   for (var i = 0; i < vals.length; i++) {
     diffs.push(Math.pow((vals[i] - avg), 2))
   }
-  return mean(diffs)
+  return diffs
 }
 
-// Standard Deviation = sqrt of variance
-function stdev(vals) {
-  return Math.sqrt(variance(vals))
+// Population Variance = average squared deviation from mean
+function populationVariance(vals) {
+  return mean(valuesMinusMeanSquared(vals))
+}
+
+// Sample Variance
+function sampleVariance(vals) {
+  var diffs = valuesMinusMeanSquared(vals)
+  if (diffs.length <= 1) return NaN
+
+  return sum(diffs) / (diffs.length - 1)
+}
+
+
+// Population Standard Deviation = sqrt of population variance
+function populationStdev(vals) {
+  return Math.sqrt(populationVariance(vals))
+}
+
+// Sample Standard Deviation = sqrt of sample variance
+function sampleStdev(vals) {
+  return Math.sqrt(sampleVariance(vals))
 }
 
 function percentile(vals, ptile) {
