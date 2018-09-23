@@ -1,3 +1,5 @@
 node_modules/
 .tern-port
 .DS_Store
+yarn-error.log
+stats.js
