@@ -1,0 +1,21 @@
+export declare function isNumber(n: any): boolean;
+export declare function numbers(vals: any): number[];
+export declare function nsort(vals: number[]): number[];
+export declare function sum(vals: any): number;
+export declare function mean(vals: any): number;
+export declare function median(vals: any): number;
+export declare function mode(vals: any): number | Set<number>;
+export declare function valuesMinusMeanSquared(vals: any): any[];
+export declare function populationVariance(vals: any): number;
+export declare function sampleVariance(vals: any): number;
+export declare function populationStdev(vals: any): number;
+export declare function sampleStdev(vals: any): number;
+export declare function percentile(vals: any, ptile: number): number;
+export declare function histogram(vals: any, bins: any): {
+    values: any[];
+    bins: any;
+    binWidth: number;
+    binLimits: number[];
+};
+export declare const variance: typeof populationVariance;
+export declare const stdev: typeof populationStdev;

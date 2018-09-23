@@ -1,22 +1,8 @@
-"use strict";
+export function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
-module.exports.numbers = numbers
-module.exports.sum = sum
-module.exports.mean = mean
-module.exports.median = median
-module.exports.mode = mode
-module.exports.variance = populationVariance
-module.exports.sampleVariance = sampleVariance
-module.exports.populationVariance = populationVariance
-module.exports.stdev = populationStdev
-module.exports.sampleStdev = sampleStdev
-module.exports.populationStdev = populationStdev
-module.exports.percentile = percentile
-module.exports.histogram = histogram
-
-var isNumber = require("isnumber")
-
-function numbers(vals) {
+export function numbers(vals): number[] {
   var nums = []
   if (vals == null)
     return nums
@@ -28,11 +14,11 @@ function numbers(vals) {
   return nums
 }
 
-function nsort(vals) {
+export function nsort(vals: number[]) {
   return vals.sort(function numericSort(a, b) { return a - b })
 }
 
-function sum(vals) {
+export function sum(vals): number {
   vals = numbers(vals)
   var total = 0
   for (var i = 0; i < vals.length; i++) {
@@ -41,13 +27,13 @@ function sum(vals) {
   return total
 }
 
-function mean(vals) {
+export function mean(vals): number {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
   return (sum(vals) / vals.length)
 }
 
-function median(vals) {
+export function median(vals): number {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
 
@@ -66,7 +52,7 @@ function median(vals) {
 
 // Returns the mode of a unimodal dataset
 // If the dataset is multi-modal, returns a Set containing the modes
-function mode(vals) {
+export function mode(vals): number | Set<number> {
   vals = numbers(vals)
   if (vals.length === 0) return NaN
   var mode = NaN
@@ -105,7 +91,7 @@ function mode(vals) {
 // This helper finds the mean of all the values, then squares the difference
 // from the mean for each value and returns the resulting array.  This is the
 // core of the varience functions - the difference being dividing by N or N-1.
-function valuesMinusMeanSquared(vals) {
+export function valuesMinusMeanSquared(vals) {
   vals = numbers(vals)
   var avg = mean(vals)
   var diffs = []
@@ -116,12 +102,12 @@ function valuesMinusMeanSquared(vals) {
 }
 
 // Population Variance = average squared deviation from mean
-function populationVariance(vals) {
+export function populationVariance(vals) {
   return mean(valuesMinusMeanSquared(vals))
 }
 
 // Sample Variance
-function sampleVariance(vals) {
+export function sampleVariance(vals) {
   var diffs = valuesMinusMeanSquared(vals)
   if (diffs.length <= 1) return NaN
 
@@ -130,16 +116,16 @@ function sampleVariance(vals) {
 
 
 // Population Standard Deviation = sqrt of population variance
-function populationStdev(vals) {
+export function populationStdev(vals) {
   return Math.sqrt(populationVariance(vals))
 }
 
 // Sample Standard Deviation = sqrt of sample variance
-function sampleStdev(vals) {
+export function sampleStdev(vals) {
   return Math.sqrt(sampleVariance(vals))
 }
 
-function percentile(vals, ptile) {
+export function percentile(vals, ptile: number): number {
   vals = numbers(vals)
   if (vals.length === 0 || ptile == null || ptile < 0) return NaN
 
@@ -154,7 +140,7 @@ function percentile(vals, ptile) {
   return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
 }
 
-function histogram (vals, bins) {
+export function histogram (vals, bins) {
   if (vals == null) {
     return null
   }
@@ -208,3 +194,6 @@ function histogram (vals, bins) {
 
   return hist
 }
+
+export const variance = populationVariance
+export const stdev = populationStdev
