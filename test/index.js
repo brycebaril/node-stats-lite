@@ -172,7 +172,7 @@ test("percentile", function (t) {
 
   t.ok(isNaN(percentile([])), "percentile of nothing is NaN")
 
-  var scores = [4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,10]
+  var scores = [4, 4, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10]
 
   t.ok(isNaN(percentile(scores)), "percentile requires a target percentile")
 
@@ -192,6 +192,33 @@ test("percentile", function (t) {
   t.end()
 })
 
+test("decile", function (t) {
+  var decile = stats.decile
+
+  t.equals(typeof decile, "function", "decile is a function")
+
+  t.ok(isNaN(decile()), "decile of nothing is NaN")
+
+  t.ok(isNaN(decile([])), "decile of nothing is NaN")
+
+  var scores = [4, 4, 5, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9, 10, 10, 10]
+
+  t.ok(isNaN(decile(scores)), "decile requires a target decile")
+
+
+  t.deepEquals(decile(scores, 5), stats.median(scores), "5th decile equals median")
+
+  t.deepEquals(decile(scores, 2), 5, "decile works")
+
+  t.deepEquals(decile(scores, 8), 9, "decile works")
+
+  t.deepEquals(decile([15, 20, 35, 40, 50], 4), 27.5, "decile works")
+
+  t.deepEquals(decile([100, 200], 9), 200, "decile above data work")
+
+  t.end()
+})
+
 test('histogram', (t) => {
   var histogram = stats.histogram
 
@@ -203,38 +230,38 @@ test('histogram', (t) => {
 
   // With preset bin count
   var expect = {
-    values: [ 1, 0, 0, 0, 1 ],
+    values: [1, 0, 0, 0, 1],
     bins: 5,
     binWidth: 2.94,
-    binLimits: [ 1.6500000000000004, 16.35 ]
+    binLimits: [1.6500000000000004, 16.35]
   }
   t.deepEquals(histogram([2, 16], 5), expect)
 
   expect = {
-    values: [ 1, 0, 0, 0, 0, 1 ],
+    values: [1, 0, 0, 0, 0, 1],
     bins: 6,
     binWidth: 2.4499999999999997,
-    binLimits: [ 1.6500000000000004, 16.35 ]
+    binLimits: [1.6500000000000004, 16.35]
   }
   t.deepEquals(histogram([2, 16], 6), expect)
 
   expect = {
-    values: [ 1 ],
+    values: [1],
     bins: 1,
     binWidth: 1.05,
-    binLimits: [ 99.475, 100.52499999999999 ]
+    binLimits: [99.475, 100.52499999999999]
   }
   t.deepEquals(histogram([100], 1), expect, "Single entry")
 
   expect = {
-    binLimits: [ -105, 105 ],
+    binLimits: [-105, 105],
     binWidth: 10.5,
     bins: 20,
-    values: [ 1, 0, 0, 0, 1, 0, 0, 1, 0, 2, 3, 0, 0, 0, 1, 0, 0, 0, 0, 1 ]
+    values: [1, 0, 0, 0, 1, 0, 0, 1, 0, 2, 3, 0, 0, 0, 1, 0, 0, 0, 0, 1]
   }
   t.deepEquals(histogram([-100, -53, 10, 100, -22, 0, 0, 1, 3, 44], 20), expect, 'range goes from negative to positive')
 
-  function diceTest (n, dieString) {
+  function diceTest(n, dieString) {
     var rolls = []
     for (var i = 0; i < n; i++) {
       rolls.push(dice.sum(dice.roll(dieString)))
