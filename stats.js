@@ -12,6 +12,9 @@ module.exports.stdev = populationStdev
 module.exports.sampleStdev = sampleStdev
 module.exports.populationStdev = populationStdev
 module.exports.percentile = percentile
+module.exports.decile = decile
+module.exports.firstDecile = firstDecile
+module.exports.lastDecile = lastDecile
 module.exports.histogram = histogram
 
 var isNumber = require("isnumber")
@@ -60,7 +63,7 @@ function median(vals) {
   }
   else {
     // Even length, average middle two elements
-    return (vals[half-1] + vals[half]) / 2.0
+    return (vals[half - 1] + vals[half]) / 2.0
   }
 }
 
@@ -154,7 +157,19 @@ function percentile(vals, ptile) {
   return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
 }
 
-function histogram (vals, bins) {
+function decile(vals, decile) {
+  if (decile == null || decile < 0) return NaN
+
+  return percentile(vals, decile / 10);
+}
+function firstDecile(vals) {
+  return decile(vals, 1);
+}
+function lastDecile(vals) {
+  return decile(vals, 9);
+}
+
+function histogram(vals, bins) {
   if (vals == null) {
     return null
   }

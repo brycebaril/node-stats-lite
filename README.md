@@ -120,6 +120,11 @@ Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviati
 
 Calculate the value representing the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
 
+`decile(vals, decile)`
+---
+
+Calculate the value representing the desired [decile](http://en.wikipedia.org/wiki/Decile) `(0 < decile <= 10)`. Uses the Estimation method to interpolate non-member percentiles.
+
 `histogram(vals[, bins])`
 ---
 
