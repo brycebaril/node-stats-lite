@@ -234,6 +234,14 @@ test('histogram', (t) => {
   }
   t.deepEquals(histogram([-100, -53, 10, 100, -22, 0, 0, 1, 3, 44], 20), expect, 'range goes from negative to positive')
 
+  expect = {
+    binLimits: [0, 9],
+    binWidth: 1.5,
+    bins: 6,
+    values: [1, 2, 1, 2, 0, 0],
+  }
+  t.deepEquals(histogram([1, 2, 3, 4, 5, 6], 6, [0, 9]), expect, 'custom bin limits')
+
   function diceTest (n, dieString) {
     var rolls = []
     for (var i = 0; i < n; i++) {
