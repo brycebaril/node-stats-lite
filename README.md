@@ -120,10 +120,10 @@ Calculate the [standard deviation](http://en.wikipedia.org/wiki/Standard_deviati
 
 Calculate the value representing the desired [percentile](http://en.wikipedia.org/wiki/Percentile) `(0 < ptile <= 1)`. Uses the Estimation method to interpolate non-member percentiles.
 
-`histogram(vals[, bins])`
+`histogram(vals[, bins[, binLimits]])`
 ---
 
-Build a histogram representing the distribution of the data in the provided number of `bins`. If `bins` is not set, it will choose one based on `Math.sqrt(vals.length)`. Data will look like:
+Build a histogram representing the distribution of the data in the provided number of `bins`. If `bins` is not set, it will choose one based on `Math.sqrt(vals.length)`. `binLimits` can be used to define custom min/max edges for the bins (as an array with two numeric values). Data will look like:
 ```
 histogram {
   values: [ 86, 159, 253, 335, 907, 405, 339, 270, 146, 100 ],

@@ -154,7 +154,7 @@ function percentile(vals, ptile) {
   return (1 - fract) * vals[int_part] + fract * vals[Math.min(int_part + 1, vals.length - 1)]
 }
 
-function histogram (vals, bins) {
+function histogram(vals, bins, binLimits) {
   if (vals == null) {
     return null
   }
@@ -171,8 +171,8 @@ function histogram (vals, bins) {
     bins = 1
   }
 
-  var min = vals[0]
-  var max = vals[vals.length - 1]
+  var min = binLimits ? binLimits[0] : vals[0]
+  var max = binLimits ? binLimits[1] : vals[vals.length - 1]
   if (min === max) {
     // fudge for non-variant data
     min = min - 0.5
@@ -182,7 +182,7 @@ function histogram (vals, bins) {
   var range = (max - min)
   // make the bins slightly larger by expanding the range about 10%
   // this helps with dumb floating point stuff
-  var binWidth = (range + (range * 0.05)) / bins
+  var binWidth = (range + (range * (binLimits ? 0 : 0.05))) / bins
   var midpoint = (min + max) / 2
   // even bin count, midpoint makes an edge
   var leftEdge = midpoint - (binWidth * Math.floor(bins / 2))
